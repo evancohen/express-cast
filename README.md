@@ -1,4 +1,6 @@
 # express-cast
+WORK IN PROGRESS
+
 A local HTTP server built to run on your home network with node that exposes Chromecast functionality. As an interesting side effect of this you can Cast from ouside of your home network (using port forwording) and do some pretty cool other stuff.
 
 ### Getting started
