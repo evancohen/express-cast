@@ -1,0 +1,27 @@
+{
+  "name": "express-cast",
+  "version": "0.1.0",
+  "description": "local HTTP server that exposes Chromecast functionality",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evancohen/express-cast.git"
+  },
+  "keywords": [
+    "cast",
+    "chromecast"
+  ],
+  "author": "Evan Cohen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/evancohen/express-cast/issues"
+  },
+  "homepage": "https://github.com/evancohen/express-cast",
+  "dependencies": {
+    "express": "^4.13.3",
+    "playmusic": "^2.0.3"
+  }
+}
