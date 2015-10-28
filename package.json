@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/evancohen/express-cast",
   "dependencies": {
+    "castv2": "^0.1.4",
     "express": "^4.13.3",
     "playmusic": "^2.0.3"
   }

@@ -15,7 +15,7 @@ pm.init(config.gmusic, function(err, other) {
 
 //GET on the root, yo
 app.get('/', function (req, res) {
-  res.send('Ready to do your bidding!');
+  res.send({message: 'Ready to do your bidding!'});
 });
 
 //This is for testing. Get all of your songs and then show details about the first one on the list
@@ -47,8 +47,10 @@ app.get('/search', function (req, res){
       console.log('what is this', message);
   });
 });
-  
  
+
+
+
 // Some helper functions for responses
 function success(res, body){
   sendResponse(res, "Success", body);
