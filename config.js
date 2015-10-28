@@ -1,7 +1,7 @@
 var config = {};
 config.gmusic = {};
 
-config.gmuisc.user_name = "your_email@here.com";
-config.gmusic.password = "password";
+config.gmusic.androidId = 'ANDROID_ID';
+config.gmusic.masterToken = 'oauth2rt_1/MASTER_TOKEN';
 
 module.exports = config;
