@@ -16,3 +16,8 @@ That's it, you are ready to go! Run it with
 ```
 node index.js
 ```
+
+
+#### TODO
+When you pause chromecast turn the lights up in the room
+When you play it again turn the lights down

@@ -1,3 +1,6 @@
+var Client                = require('castv2-client').Client;
+var DefaultMediaReceiver  = require('castv2-client').DefaultMediaReceiver;
+var mdns                  = require('mdns');
 var Client = require('castv2').Client;
 var mdns = require('mdns');
 
@@ -29,6 +32,7 @@ function ondeviceup(host) {
     }, 5000);
 
     // launch YouTube app
+    //Google Play Music appId: '2872939A'
     receiver.send({ type: 'LAUNCH', appId: 'YouTube', requestId: 1 });
 
     // display receiver status updates
