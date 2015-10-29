@@ -23,6 +23,7 @@
   "dependencies": {
     "castv2": "^0.1.4",
     "express": "^4.13.3",
-    "playmusic": "^2.0.3"
+    "playmusic": "^2.0.3",
+    "youtube-node": "^1.3.0"
   }
 }

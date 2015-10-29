@@ -1,17 +1,21 @@
-//Simple server that exposes your Chromecast devices over HTTP to make home automation easier
-
+//Include dependencies for express-cast
 var express = require('express');
-var PlayMusic = require('playmusic');
 var config = require('./config');
+var PlayMusic = require('playmusic');
+var YouTube = require('youtube-node');
 
-var pm = new PlayMusic();
 var app = express();
+var pm = new PlayMusic();
+var youTube = new YouTube();
 
 //Initiate Google Muisc
 pm.init(config.gmusic, function(err, other) {
   if(err) console.error(err);
   // place code here
-})
+});
+
+//Initiate YouTube key
+youTube.setKey(config.youTubeKey);
 
 //GET on the root, yo
 app.get('/', function (req, res) {
@@ -34,22 +38,49 @@ app.get('/song', function (req, res) {
 });
 
 //Search for a song and return the results
+//@param 'q' - search query
+//@param 'type' - specify the type of the search: "music" or "video"
 app.get('/search', function (req, res){
-  if(req.query.q === undefined){
-    error(req, "Missing paramater: q");
+  if(req.query.q === undefined || req.query.type === undefined){
+    error(req, "Required Paramaters: 'q' and 'type'");
   }
-  pm.search(req.query.q, 5, function(err, data) { // max 5 results
-    var song = data.entries.sort(function(a, b) { // sort by match score
-      return a.score < b.score;
-    }).shift(); // take first song
-    success(res, song);
-  }, function(message, body, err, httpResponse) {
-      console.log('what is this', message);
-  });
+  
+  if(req.query.type == 'all'){
+    //Sloppy hack. Make this async.
+    googlePlayMusicSearch(req.query.q, 1, function(err, data){
+      youTubeSearch(req.query.q, 1, function(err2, data2){
+        if(err || err2) error(req, {merror:err, yerror:err2})
+        success(res, {GoogleMusic:data, YouTube:data2});
+      });
+    });
+  }else if(req.query.type == 'music'){
+    googlePlayMusicSearch(req.query.q, 1, function(err, data){
+      if(err) error(req, err)
+      success(res, data);
+    });
+  } else if(req.query.type == 'video'){
+    youTubeSearch(req.query.q, 1, function(err, data){
+      if(err) error(req, err)
+      success(res, data);
+    });
+  }
 });
- 
 
+//Google Play Music Search
+//@param 'query' - the search to perform 
+//@param 'count' - number of results
+//@param callback()
+function googlePlayMusicSearch(query, count, callback){
+  pm.search(query, count, callback);
+}
 
+//YouTube Search
+//@param 'query' - the search to perform 
+//@param 'count' - number of results
+//@param callback()
+function youTubeSearch(query, count, callback){
+  youTube.search(query, count, callback);
+}
 
 // Some helper functions for responses
 function success(res, body){
